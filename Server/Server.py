@@ -5,10 +5,21 @@ import sys
 import os
 import time
 import threading
+import random
 
 
 
 info('Starting server...')
+
+# global variables
+chatbot_active = False
+
+
+def chatbot_message(message):
+    if chatbot_active and message.startswith('!flipcoin'):
+        return "Chatbot: " + random.choice(['Heads', 'Tails'])
+    return None
+
 
 def handle_client(client_socket, username):
     while True:
@@ -18,7 +29,12 @@ def handle_client(client_socket, username):
                 if message == '/disconnect':
                     break
                 print(f"{username}: {message}")
-                broadcast(f"{username}: {message}", client_socket)
+
+                chatbot_response = chatbot_message(message)
+                if chatbot_response:
+                    broadcast(chatbot_response, None)
+                else:
+                    broadcast(f"{username}: {message}", client_socket)
         except:
             break
     client_socket.close()
@@ -52,13 +68,24 @@ def accept_connections(server_socket):
         thread.start()
 
 
+
+
+
 def start_server():
+    global chatbot_active
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = '0.0.0.0'
     port = int(input("Enter the port server on: "))
+
+
+
+    chatbot_enable = input("Do you want to enable the chatbot? (y/n): ").lower()
+    chatbot_active = chatbot_enable == 'y'
+
+
     server_socket.bind((host, port))
     server_socket.listen()
-    good(f"Server is running on port {port}")
+    good(f"Server is running on port {port}. Chatbot enabled: {chatbot_active}")
     accept_connections(server_socket)
 
 clients = []
