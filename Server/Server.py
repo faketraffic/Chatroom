@@ -39,12 +39,16 @@ def accept_connections(server_socket):
         client_socket, addr = server_socket.accept()
         client_socket.send("USERNAME".encode())
         username = client_socket.recv(1024).decode()
-        good(f"{username} connected from {addr}")
-        client_socket.send('Welcome to the chat room Type /disconnect to exit.'.encode())
+        if any(username == u for _, u in clients):
+            client_socket.send("Username is already taken. Please retry with a different username.".encode())
+            client_socket.close()
+            continue
+        print(f"{username} connected from {addr}")
+        client_socket.send('Welcome to the chat room! Type /stop to exit.'.encode())
         clients.append((client_socket, username))
         thread = threading.Thread(target=handle_client, args=(client_socket, username))
         thread.start()
-
+    
 def start_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = '0.0.0.0'
