@@ -7,9 +7,9 @@ it has nice interface
 buggy but works
 
 # Client 
-Everything works fine
-it has i dont know whats its called but
-you can't see your own username its simple but nice
-cmds:
-Disconnect
+  ## Everything works fine
+  ## it has i dont know whats its called but
+  ## you can't see your own username its simple but nice
+  ## cmds:
+  ### Disconnect
 
