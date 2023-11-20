@@ -5,16 +5,20 @@ def receive_messages(client_socket):
     while True:
         try:
             message = client_socket.recv(1024).decode()
-            print(message)
+            if message == 'USERNAME':
+                client_socket.send(username.encode())
+            else:
+                print(message)
         except:
-            print("An error occurred!")
+            print("Disconnected from the server.")
             client_socket.close()
             break
 
 def start_client():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = input("Enter the server IP: ")
-    port = int(input("Enter server port: "))
+    host = input("Enter the server IP address: ")
+    port = int(input("Enter the server port number: "))
+    global username
     username = input("Enter your username: ")
 
     client_socket.connect((host, port))
@@ -24,6 +28,9 @@ def start_client():
 
     while True:
         message = input('')
+        if message == '/disconnect':
+            break
         client_socket.send(message.encode())
+    client_socket.close()
 
 start_client()
