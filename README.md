@@ -1,2 +1,5 @@
-# Chatroom
-An Program that allows you to host your own chatrooms and then an client that allows you to connect
+# Info
+i will be making the server in a couple of languages like python Go etc.
+
+# Server
+
