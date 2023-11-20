@@ -22,7 +22,10 @@ def handle_client(client_socket, username):
         except:
             break
     client_socket.close()
-    clients.remove(client_socket)
+    for i, client in enumerate(clients):
+        if client[0] == client_socket:
+            clients.pop(i)
+            break
     broadcast(f"{username} has left the chat.", None)
     error(f"{username} disconnected.")
 
