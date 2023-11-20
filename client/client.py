@@ -13,8 +13,8 @@ def receive_messages(client_socket):
 
 def start_client():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = input("Enter the server IP address: ")
-    port = int(input("Enter the server port number: "))
+    host = input("Enter the server IP: ")
+    port = int(input("Enter server port: "))
 
     client_socket.connect((host, port))
 

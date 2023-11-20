@@ -35,7 +35,7 @@ def broadcast(message, sender_socket):
 def server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = '0.0.0.0'
-    port = int(input("Enter the port number to run the server on: "))
+    port = int(input("Enter port: "))
 
     server_socket.bind((host, port))
     server_socket.listen()
