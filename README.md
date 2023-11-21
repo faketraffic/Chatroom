@@ -16,6 +16,7 @@ i will be making the server in a couple of languages like python Go etc.
 
 # TODO
 ## fix emojis
+## save config plus data (so users and like just so you dont have to always put in an port and all that shit)
 ##  fix ip leaking
 ## ban system ip ban
 ## type in console
