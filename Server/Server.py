@@ -28,7 +28,16 @@ def handle_server_input():
             broadcast("Server: " + message, None)  
 
 
-
+def handle_server_commands(server_socket):
+    while True:
+        command = input()  
+        if command == '/stop':
+            print("Stopping server...")
+            for client, _ in clients:
+                client.close()  
+            server_socket.close()  
+            print("Server stopped.")
+            break
 
 
 
@@ -96,6 +105,8 @@ def start_server():
 
     server_input_thread = threading.Thread(target=handle_server_input)
     server_input_thread.start()
+    server_command_thread = threading.Thread(target=handle_server_commands, args=(server_socket,))
+    server_command_thread.start()
 
     server_socket.bind((host, port))
     server_socket.listen()
