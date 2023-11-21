@@ -21,6 +21,17 @@ def chatbot_message(message):
     return None
 
 
+def handle_server_input():
+    while True:
+        message = input()  
+        if message:
+            broadcast("Server: " + message, None)  
+
+
+
+
+
+
 def handle_client(client_socket, username):
     while True:
         try:
@@ -82,6 +93,9 @@ def start_server():
     chatbot_enable = input("Do you want to enable the chatbot? (y/n): ").lower()
     chatbot_active = chatbot_enable == 'y'
 
+
+    server_input_thread = threading.Thread(target=handle_server_input)
+    server_input_thread.start()
 
     server_socket.bind((host, port))
     server_socket.listen()
