@@ -1,17 +1,9 @@
 import socket
 import threading
 
-emoji_map = {
-    ":smile:": "😄",
-    ":sad:": "😢",
-    ":laugh:": "😂",
-    # TODO: ADD API
-}
 
-def replace_emojis(message):
-    for text, emoji in emoji_map.items():
-        message = message.replace(text, emoji)
-    return message
+
+
 
 def receive_messages(client_socket):
     while True:
@@ -40,7 +32,6 @@ def start_client():
         if message:
             if message == '/disconnect':
                 break
-            message = replace_emojis(message)
             client_socket.send(message.encode())
     client_socket.close()
 
